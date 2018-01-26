@@ -8,6 +8,7 @@ interface Holding {
     crypto: string,
     currency: string,
     amount: number,
+    price: number,
     value?: number
 }
  

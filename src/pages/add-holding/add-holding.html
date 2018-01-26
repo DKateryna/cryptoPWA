@@ -40,6 +40,17 @@
             <ion-label stacked>Amount Holding</ion-label>
             <ion-input [(ngModel)]="amountHolding" type="number"></ion-input>
         </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Initial Buying Price</ion-label>
+            <ion-input [(ngModel)]="buyingPrice" type="number"></ion-input>
+        </ion-item>
+
+          <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime displayFormat="MMMM/DD/YYYY" [(ngModel)]="today">          
+            </ion-datetime>
+          </ion-item>
  
     </ion-list>  
  

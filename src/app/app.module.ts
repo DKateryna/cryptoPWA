@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
  
 import { MyApp } from './app.component';
 import { HoldingsProvider } from '../providers/holdings/holdings';
+import { PositionsProvider } from '../providers/positions/positions';
  
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HoldingsProvider } from '../providers/holdings/holdings';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HoldingsProvider
+    HoldingsProvider,
+    PositionsProvider
   ]
 })
 export class AppModule {}
