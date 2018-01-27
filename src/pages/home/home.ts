@@ -20,7 +20,11 @@ export class HomePage {
     addHolding(): void {
         this.navCtrl.push('AddHoldingPage');
     }
- 
+
+    showOverallPosition(): void {
+        this.navCtrl.push('OverallPositionPage');
+    }
+
     goToCryptonator(): void {
         window.open('https://www.cryptonator.com/api', '_system');
     }

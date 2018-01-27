@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HoldingsProvider } from '../../providers/holdings/holdings';
 
-/**
- * Generated class for the OverallPositionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,11 +10,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class OverallPositionPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private holdingsProvider: HoldingsProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OverallPositionPage');
+  getTotal(): number {
+    return this.holdingsProvider.holdings.map(h => (h.price - h.value) * h.amount).reduce((a, b) => a + b, 0);
   }
-
 }
