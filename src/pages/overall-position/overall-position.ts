@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { HoldingsProvider } from '../../providers/holdings/holdings';
 
+
+interface OverallPosition {
+  currency: string,
+  total: number
+}
 
 @IonicPage()
 @Component({
@@ -13,7 +18,22 @@ export class OverallPositionPage {
   constructor(private holdingsProvider: HoldingsProvider) {
   }
 
-  getTotal(): number {
-    return this.holdingsProvider.holdings.map(h => (h.price - h.value) * h.amount).reduce((a, b) => a + b, 0);
+  getTotal(currency: string): number {
+    return this.holdingsProvider.holdings
+    .filter(h => h.currency === currency)
+    .map(h => (h.value - h.price) * h.amount)
+      .reduce((a, b) => a + b, 0);
+  }
+
+  getCurrencies(): Array<string>{
+    let currencies = this.holdingsProvider.holdings.map(h => h.currency.toUpperCase());
+    return Array.from(new Set<string>(currencies)); 
+  }
+
+  getOverallPositions(): Array<OverallPosition>{
+    return this.getCurrencies().map(cur => ({
+        currency: cur,
+        total: this.getTotal(cur)
+      }));
   }
 }

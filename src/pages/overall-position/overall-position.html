@@ -7,7 +7,19 @@
 </ion-header>
 
 <ion-content padding>
-  <p><strong>Total: </strong> {{getTotal()}}</p>
+
+  <ion-list no-lines>
+ 
+    <ion-item-sliding *ngFor="let holding of getOverallPositions()">
+
+      <ion-item class="holding">
+        <p><strong>{{holding.currency}}</strong></p>
+        <p class="amount"><strong>Overall position:</strong> {{holding.total}}</p>
+      </ion-item>
+
+    </ion-item-sliding>
+
+</ion-list>
 </ion-content>
 
 <ion-footer padding>
