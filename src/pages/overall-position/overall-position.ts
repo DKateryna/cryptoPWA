@@ -20,7 +20,7 @@ export class OverallPositionPage {
 
   getTotal(currency: string): number {
     return this.holdingsProvider.holdings
-    .filter(h => h.currency === currency)
+    .filter(h => h.currency.toUpperCase() === currency)
     .map(h => (h.value - h.price) * h.amount)
       .reduce((a, b) => a + b, 0);
   }
