@@ -17,6 +17,7 @@ export class AddHoldingPage {
     private displayCurrency: string;
     private amountHolding;
     private buyingPrice;
+    testForm: any;
  
     constructor(private navCtrl: NavController, private holdingsProvider: HoldingsProvider) {
  
