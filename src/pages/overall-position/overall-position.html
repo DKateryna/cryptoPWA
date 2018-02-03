@@ -10,7 +10,7 @@
 
   <ion-list no-lines>
  
-    <ion-item-sliding *ngFor="let holding of getOverallPositions()">
+    <ion-item-sliding *ngFor="let holding of getOverallPositions() | async">
 
       <ion-item class="holding">
         <p><strong>{{holding.currency}}</strong></p>
