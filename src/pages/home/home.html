@@ -29,13 +29,10 @@
  
     </div>
  
-    <ion-refresher *ngIf="holdingsProvider.holdings.length" (ionRefresh)="refreshPrices($event)">
-        <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
  
     <ion-list no-lines>
  
-        <ion-item-sliding *ngFor="let holding of holdingsProvider.holdings">
+        <ion-item-sliding *ngFor="let holding of holdingsProvider.priceObservable | async">
  
           <ion-item class="holding">
             <p><strong>{{holding.crypto}}/{{holding.currency}}</strong></p>
