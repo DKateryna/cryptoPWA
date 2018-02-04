@@ -16,8 +16,8 @@ export interface Holding {
     crypto: string,
     currency: string,
     amount: number,
-    price: number,
-    value?: number
+    buyingPrice: number,
+    currentPrice?: number
 }
 
 @Injectable()
@@ -102,7 +102,7 @@ export class HoldingsProvider {
 
             results.forEach((result: any, index) => {
 
-                holdings[index].value = result.ticker.price;
+                holdings[index].currentPrice = result.ticker.price;
 
             });
 
