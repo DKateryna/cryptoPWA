@@ -31,7 +31,7 @@ export class AddHoldingPage {
             crypto: this.cryptoCode,
             currency: this.displayCurrency,
             amount: this.amountHolding || 0,
-            price: this.buyingPrice || 0
+            buyingPrice: this.buyingPrice || 0
         };
  
         this.holdingsProvider.verifyHolding(holding).subscribe((result) => {

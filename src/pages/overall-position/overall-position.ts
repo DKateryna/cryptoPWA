@@ -24,7 +24,7 @@ export class OverallPositionPage {
   getTotal(holdings: Holding[], currency: string): number {
     return holdings
       .filter(h => h.currency.toUpperCase() === currency)
-      .map(h => (h.value - h.price) * h.amount)
+      .map(h => (h.currentPrice - h.buyingPrice) * h.amount)
       .reduce((a, b) => a + b, 0);
   }
 
@@ -44,8 +44,6 @@ export class OverallPositionPage {
 
   getOverallPositions(): Observable<OverallPosition[]> {
     return this.holdingsProvider.priceObservable.map((h) => this.getOverallPositions1(h));
-    // return Observable.of();
-
   }
 
 }

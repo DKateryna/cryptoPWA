@@ -11,21 +11,24 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/observable/interval';
 
 
-
-export interface Holding {
+interface StoredHolding {
     crypto: string,
     currency: string,
     amount: number,
-    price: number,
-    value?: number
+    buyingPrice: number
+}
+
+
+export interface Holding extends StoredHolding {
+    currentPrice?: number
 }
 
 @Injectable()
 export class HoldingsProvider {
 
-    public holdings: Holding[] = [];
+    public holdings: StoredHolding[] = [];
     priceObservable: Observable<Holding[]>;
-    priceObserver: Observer<Holding[]>;
+    priceObserver: Observer<StoredHolding[]>;
     interval: Observable<any>;
 
 
@@ -33,7 +36,7 @@ export class HoldingsProvider {
 
         let connectable: ConnectableObservable<Holding[]> = Observable.create((observer) => {
             this.priceObserver = observer;
-        }).mergeMap((holdings: Holding[]) => this.fetchPrices(holdings)).publishReplay(1);
+        }).mergeMap((storedHoldings: StoredHolding[]) => this.fetchPrices(storedHoldings)).publishReplay(1);
 
         connectable.connect();
         this.priceObservable = connectable;
@@ -44,7 +47,7 @@ export class HoldingsProvider {
 
     }
 
-    addHolding(holding: Holding): void {
+    addHolding(holding: StoredHolding): void {
 
         this.holdings.push(holding);
         this.saveHoldings();
@@ -66,10 +69,10 @@ export class HoldingsProvider {
 
     loadHoldings(): void {
 
-        this.storage.get('cryptoHoldings').then(holdings => {
+        this.storage.get('cryptoHoldings').then(storedHoldings => {
 
-            if (holdings !== null) {
-                this.holdings = holdings;
+            if (storedHoldings !== null) {
+                this.holdings = storedHoldings;
                 this.priceObserver.next(this.holdings);
             }
         });
@@ -81,11 +84,11 @@ export class HoldingsProvider {
     }
 
 
-    createRequests(holdings: Holding[]): Observable<any>[] {
+    createRequests(storedHoldings: StoredHolding[]): Observable<any>[] {
 
         let requests = [];
 
-        for (let holding of this.holdings) {
+        for (let holding of storedHoldings) {
             let url = 'https://api.cryptonator.com/api/ticker/' + holding.crypto + '-' + holding.currency;
             let request = this.http.get(url);
             requests.push(request);
@@ -94,15 +97,17 @@ export class HoldingsProvider {
 
     }
 
-    fetchPrices(holdings: Holding[]): Observable<Holding[]> {
+    fetchPrices(storedHoldings: StoredHolding[]): Observable<Holding[]> {
 
-        let requests = this.createRequests(holdings);
+        let requests = this.createRequests(storedHoldings);
+        let holdings: Holding[] = storedHoldings.map(holding => ({ ...holding }));
+
 
         return forkJoin(requests).map(results => {
 
             results.forEach((result: any, index) => {
 
-                holdings[index].value = result.ticker.price;
+                holdings[index].currentPrice = result.ticker.price;
 
             });
 

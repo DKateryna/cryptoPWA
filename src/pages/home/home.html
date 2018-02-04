@@ -36,8 +36,8 @@
  
           <ion-item class="holding">
             <p><strong>{{holding.crypto}}/{{holding.currency}}</strong></p>
-            <p class="amount"><strong>Coins:</strong> {{holding.amount}} <strong>Value:</strong> {{holding.value}}</p>
-            <p *ngIf="holding.value > 0" class="value">{{holding.amount * holding.value}}</p>
+            <p class="amount"><strong>Coins:</strong> {{holding.amount}} <strong>Current Price:</strong> {{holding.currentPrice}}</p>
+            <p *ngIf="holding.currentPrice > 0" class="currentPrice">{{holding.amount * holding.currentPrice}}</p>
           </ion-item>
  
           <ion-item-options>
