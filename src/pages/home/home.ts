@@ -25,12 +25,11 @@ export class HomePage {
         this.navCtrl.push('OverallPositionPage');
     }
 
+    showChart(): void {
+        this.navCtrl.push('ChartPage');
+    }
+
     goToCryptonator(): void {
         window.open('https://www.cryptonator.com/api', '_system');
     }
-
-    // refreshPrices(refresher): void {
-    //     this.holdingsProvider.fetchPrices(refresher);
-    // }
-
 }

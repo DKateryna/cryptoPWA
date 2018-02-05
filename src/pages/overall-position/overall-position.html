@@ -9,21 +9,24 @@
 <ion-content padding>
 
   <ion-list no-lines>
- 
+
     <ion-item-sliding *ngFor="let holding of getOverallPositions() | async">
 
       <ion-item class="holding">
-        <p><strong>{{holding.currency}}</strong></p>
-        <p class="amount"><strong>Overall position:</strong> {{holding.total}}</p>
+        <p>
+          <strong>{{holding.currency}}</strong>
+        </p>
+        <p class="amount">
+          <strong>Overall position:</strong> {{holding.total}}</p>
       </ion-item>
 
     </ion-item-sliding>
 
-</ion-list>
+  </ion-list>
 </ion-content>
 
 <ion-footer padding>
- 
+
   <p><strong>Note:</strong> Keep track of the approximate worth of your cryptocurency portfolio.</p>
 
 </ion-footer>
