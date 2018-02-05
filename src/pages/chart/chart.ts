@@ -27,9 +27,9 @@ export class ChartPage {
  
                 type: 'bar',
                 data: {
-                    labels: holdings.map(h => h.crypto),
+                    labels: holdings.map(h => h.crypto + '(' + h.currency + ')'),
                     datasets: [{
-                        label: '',
+                        label: 'Profit/loss per holdings',
                         data: holdings.map(h => ((h.currentPrice - h.buyingPrice) * h.amount)),
                         backgroundColor: holdings.map(h => h.currentPrice - h.buyingPrice > 0? 'rgba(0,255,0,0.3)' : 'rgba(255,0,0,0.3)')
     
