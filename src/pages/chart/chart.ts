@@ -32,8 +32,6 @@ export class ChartPage {
                         label: 'Profit/loss per holdings',
                         data: holdings.map(h => ((h.currentPrice - h.buyingPrice) * h.amount)),
                         backgroundColor: holdings.map(h => h.currentPrice - h.buyingPrice > 0? 'rgba(0,255,0,0.3)' : 'rgba(255,0,0,0.3)')
-    
-    
                     }],
                 },
                 options: {
